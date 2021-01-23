@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="817.0" prefWidth="1047.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
+   <center>
+      <HBox prefHeight="573.0" prefWidth="776.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnDealCards" mnemonicParsing="false" onAction="#onDealCards" prefHeight="42.0" prefWidth="122.0" text="DEAL CARDS" translateX="30.0" translateY="20.0" />
+            <Button fx:id="btnCard" mnemonicParsing="false" onAction="#onDeck1" prefHeight="100.0" prefWidth="99.0" text="Button" translateX="200.0" translateY="200.0" />
+            <Button fx:id="btnCard1" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard11" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard12" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard13" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard14" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard15" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard16" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard17" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard18" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard19" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnCard110" mnemonicParsing="false" onAction="#onHand" prefHeight="100.0" prefWidth="99.0" text="Button" translateY="900.0" />
+            <Button fx:id="btnTopCard" mnemonicParsing="false" prefHeight="125.0" prefWidth="99.0" text="Button" translateX="-400.0" translateY="-200.0" />
+            <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#onConfirm" prefWidth="148.0" text="CONFIRM" translateY="700.0" />
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
