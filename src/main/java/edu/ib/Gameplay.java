@@ -1,5 +1,6 @@
 package edu.ib;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static java.util.Collections.emptyList;
@@ -19,7 +20,6 @@ public class Gameplay {
 		players = new ArrayList<>();
 
 		deck1.makeADeck();
-
 
 		for (int i = 0; i < nOfPlayers; i++) {
 			if(i==0){
@@ -54,20 +54,19 @@ public class Gameplay {
 
 	}
 
-	public void turn() {
-
-		for (int i = 0; i < players.size(); i++) {
-
-			if(players.get(i).getClass().equals("GPU"))
-				players.get(i).makeMove(deck1, deck2, topCard, true);
-			else
-				players.get(i).makeMove(deck1, deck2, topCard, true);
-
-		}
+	public void turn(int i) {
+		players.get(i).makeMove(deck1, deck2, topCard);
 	}
+
 
 	public Card getTopCard() {
 		return topCard;
+	}
+
+
+
+	public Deck getDeck2() {
+		return deck2;
 	}
 
 	/**
@@ -75,6 +74,7 @@ public class Gameplay {
 	 * @param topCard
 	 */
 	public void setTopCard(Card topCard) {
+
 		this.topCard = topCard;
 	}
 

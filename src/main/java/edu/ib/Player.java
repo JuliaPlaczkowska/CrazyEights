@@ -13,7 +13,8 @@ public abstract class Player {
 		this.id = id;
 	}
 
-	public abstract void makeMove(Deck deck1, Deck deck2, Card topCard, boolean firstMove);
+	public abstract void makeMove(Deck deck1, Deck deck2, Card topCard);
+	public abstract int getMove(Deck hand2, Deck deck2);
 
 	Random losowe = new Random();
 	int a=0;
@@ -25,10 +26,15 @@ public abstract class Player {
 		deckName.remove(c);
 	}
 
-	public void playACard(Deck deckName, Card card){
+	public void playACard(Deck deckName, Card card ){
 		deckName.addCard(card);
 		getHandCards().remove(card);
 
+
+
+	}
+	public  int getID(){
+		return id;
 	}
 
 	public void addCard() {

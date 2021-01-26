@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
+<AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.NewController">
    <children>
       <Button fx:id="btnDealCards" layoutX="84.0" layoutY="49.0" mnemonicParsing="false" onAction="#onDealCards" prefHeight="50.0" prefWidth="126.0" text="DEAL CARDS" />
       <Button fx:id="btnCard" layoutX="423.0" layoutY="303.0" mnemonicParsing="false" onAction="#onDeck1" prefHeight="100.0" prefWidth="70.0" text="Button" />

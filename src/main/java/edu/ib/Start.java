@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,6 +24,9 @@ public class Start {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Image CPUHand;
 
     @FXML
     private MenuButton menu;
@@ -42,7 +46,7 @@ public class Start {
     @FXML
     private Button btnStart;
 
-    private int nOfPlayers;
+    private static int nOfPlayers;
 
     @FXML
     void onStartGame(ActionEvent event) throws IOException {
@@ -76,6 +80,10 @@ public class Start {
         nOfPlayers = 4;
         text.setText(String.valueOf(nOfPlayers));
     }
+
+   public static int nop(){
+        return nOfPlayers;
+   }
 
     @FXML
     void initialize() {

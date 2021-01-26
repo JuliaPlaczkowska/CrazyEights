@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Osemka">
+   <children>
+      <Button fx:id="btnH" layoutX="142.0" layoutY="189.0" mnemonicParsing="false" onAction="#onHeart" prefHeight="84.0" prefWidth="79.0" text="Button" />
+      <Button fx:id="btnC" layoutX="379.0" layoutY="189.0" mnemonicParsing="false" onAction="#onClub" prefHeight="84.0" prefWidth="79.0" text="Button" />
+      <Button fx:id="btnS" layoutX="300.0" layoutY="189.0" mnemonicParsing="false" onAction="#onSpade" prefHeight="84.0" prefWidth="79.0" text="Button" />
+      <Button fx:id="btnD" layoutX="221.0" layoutY="189.0" mnemonicParsing="false" onAction="#onDiamond" prefHeight="84.0" prefWidth="79.0" text="Button" />
+      <Text layoutX="153.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE NEW SUIT " wrappingWidth="294.43896484375">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnConfirm" layoutX="250.0" layoutY="316.0" mnemonicParsing="false" onAction="#onConfirm" prefHeight="33.0" prefWidth="101.0" text="CONFIRM" />
+   </children>
+</AnchorPane>
