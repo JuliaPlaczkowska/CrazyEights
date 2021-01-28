@@ -14,7 +14,7 @@
             <Font name="Arial Black" size="32.0" />
          </font>
       </Text>
-      <MenuButton fx:id="menu" mnemonicParsing="false" text="Wybierz ilość graczy:" translateY="70.0">
+      <MenuButton fx:id="menu" mnemonicParsing="false" text="Wybierz liczbę graczy:" translateY="70.0">
         <items>
           <MenuItem fx:id="twoPlayers" mnemonicParsing="false" onAction="#set2Players" text="2" />
           <MenuItem fx:id="threePlayers" mnemonicParsing="false" onAction="#set3Players" text="3" />

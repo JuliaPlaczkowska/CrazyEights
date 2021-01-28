@@ -56,6 +56,9 @@ public class Gameplay {
 
 	public void turn(int i) {
 		players.get(i).makeMove(deck1, deck2, topCard);
+
+		int licznik = 0;
+
 	}
 
 

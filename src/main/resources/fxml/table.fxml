@@ -7,8 +7,8 @@
 <AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
    <children>
       <Button fx:id="btnDealCards" layoutX="84.0" layoutY="49.0" mnemonicParsing="false" onAction="#onDealCards" prefHeight="50.0" prefWidth="126.0" text="DEAL CARDS" />
-      <Button fx:id="btnCard" layoutX="423.0" layoutY="303.0" mnemonicParsing="false" onAction="#onDeck1" prefHeight="100.0" prefWidth="70.0" text="Button" />
-      <Button fx:id="btnTopCard" layoutX="707.0" layoutY="303.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" text="Button" />
+      <Button fx:id="btnCard" layoutX="423.0" layoutY="338.0" mnemonicParsing="false" onAction="#onDeck1" prefHeight="100.0" prefWidth="70.0" text="Button" />
+      <Button fx:id="btnTopCard" layoutX="678.0" layoutY="338.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" text="Button" />
       <Button fx:id="btnCard1" layoutX="174.0" layoutY="800.0" mnemonicParsing="false" onAction="#onHand" prefHeight="97.0" prefWidth="71.0" text="Button" />
       <Button fx:id="btnCard12" layoutX="955.0" layoutY="800.0" mnemonicParsing="false" onAction="#onHand" prefHeight="97.0" prefWidth="71.0" text="Button" />
       <Button fx:id="btnCard11" layoutX="884.0" layoutY="800.0" mnemonicParsing="false" onAction="#onHand" prefHeight="97.0" prefWidth="71.0" text="Button" />
@@ -25,5 +25,9 @@
       <ImageView fx:id="CPU1" fitHeight="100.0" fitWidth="100.0" layoutX="110.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="CPU2" fitHeight="100.0" fitWidth="100.0" layoutX="543.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="CPU3" fitHeight="100.0" fitWidth="100.0" layoutX="976.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnH" layoutX="515.0" layoutY="209.0" mnemonicParsing="false" onAction="#onSuit" prefHeight="100.0" prefWidth="100.0" text="Button" />
+      <Button fx:id="btnS" layoutX="813.0" layoutY="209.0" mnemonicParsing="false" onAction="#onSuit" prefHeight="100.0" prefWidth="100.0" text="Button" />
+      <Button fx:id="btnD" layoutX="713.0" layoutY="209.0" mnemonicParsing="false" onAction="#onSuit" prefHeight="100.0" prefWidth="100.0" text="Button" />
+      <Button fx:id="btnC" layoutX="613.0" layoutY="209.0" mnemonicParsing="false" onAction="#onSuit" prefHeight="100.0" prefWidth="100.0" text="Button" />
    </children>
 </AnchorPane>

@@ -1,24 +1,28 @@
 package edu.ib;
 
+import java.awt.desktop.ScreenSleepEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import animatefx.animation.Bounce;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import com.sun.scenario.effect.Effect;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.sound.midi.Track;
 
@@ -91,53 +95,239 @@ public class Controller {
     @FXML
     private ImageView CPU3;
 
+    @FXML
+    private Button btnH;
 
+    @FXML
+    private Button btnS;
+
+    @FXML
+    private Button btnD;
+
+    @FXML
+    private Button btnC;
+
+    Random losowe = new Random();
+    int liczniklosowy = 0;
     private Gameplay gameplay;
-    private int nOfPlayers= Start.nop();
+    private int nOfPlayers = Start.nop();
     private Deck cardsClicked;
-    private ArrayList<String> buttons = new ArrayList<>();;
+    private ArrayList<String> buttons = new ArrayList<>();
+    private int clicks = 0;
+    private static String win = "nic";
 
 
     @FXML
     void onDeck1(ActionEvent event) {
+        if (clicks > 3) {
 
-        gameplay.getPlayers().get(0).takeACard(gameplay.getDeck1());
-        showHandGPU();
-
+        } else {
+            gameplay.getPlayers().get(0).takeACard(gameplay.getDeck1());
+            clicks++;
+            showHandGPU(event);
+        }
     }
 
-    public void initData(int nOfPlayers){
+
+    public static String getWin() {
+        return win;
+    }
+
+    public void initData(int nOfPlayers) {
 
         this.nOfPlayers = nOfPlayers;
     }
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
+        // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
         btnTopCard.setVisible(false);
         btnConfirm.setVisible(false);
+        btnH.setVisible(false);
+        btnH.setDisable(true);
+        btnC.setVisible(false);
+        btnC.setDisable(true);
+        btnS.setVisible(false);
+        btnS.setDisable(true);
+        btnD.setVisible(false);
+        btnD.setDisable(true);
         assert btnCard != null : "fx:id=\"btnCard\" was not injected: check your FXML file 'table.fxml'.";
         setIcon(btnCard, "back.jpg");
 
     }
 
     @FXML
+    void onSuit(ActionEvent e) {
+
+        btnH.setVisible(false);
+        btnH.setDisable(true);
+        btnC.setVisible(false);
+        btnC.setDisable(true);
+        btnS.setVisible(false);
+        btnS.setDisable(true);
+        btnD.setVisible(false);
+        btnD.setDisable(true);
+
+        int suit = 1;
+
+        if (e.getSource().equals(btnH)) {
+            setIcon(btnTopCard, "8H.png");
+            gameplay.getDeck2().addCard(new Card(8, 1));
+            suit =1;
+        } else if (e.getSource().equals(btnD)) {
+            setIcon(btnTopCard, "8D.png");
+            gameplay.getDeck2().addCard(new Card(8, 2));
+            suit =2;
+        } else if (e.getSource().equals(btnS)) {
+            setIcon(btnTopCard, "8S.png");
+            gameplay.getDeck2().addCard(new Card(8, 3));
+            suit =3;
+        } else if (e.getSource().equals(btnC)) {
+            setIcon(btnTopCard, "8C.png");
+            gameplay.getDeck2().addCard(new Card(8, 4));
+            suit =4;
+        }
+
+        gameplay.setTopCard(new Card(8, suit));
+
+        turn(e);
+
+        showHandGPU(e);
+    }
+
+   void turn(ActionEvent e) {
+
+       btnH.setVisible(false);
+       btnC.setVisible(false);
+       btnD.setVisible(false);
+       btnS.setVisible(false);
+
+       gameplay.turn(1);
+       gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+       if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
+           gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
+           if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+               btnH.setVisible(true);
+               btnH.setDisable(false);
+               setIcon(btnH, "Hearts.png");
+               btnH.setMaxWidth(50);
+           }
+
+           else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.DIAMOND)) {
+               btnD.setVisible(true);
+               btnD.setDisable(false);
+               setIcon(btnD, "Diamonds.png");
+               btnD.setMaxWidth(50);
+           }
+           else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+               btnS.setVisible(true);
+               btnS.setDisable(false);
+               setIcon(btnS, "Spades.png");
+               btnS.setMaxWidth(50);
+           }
+           else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+               btnC.setVisible(true);
+               btnC.setDisable(false);
+               setIcon(btnC, "Clubs.png");
+               btnC.setMaxWidth(50);
+
+           }
+
+       }
+       showHandGPU(e);
+
+
+       if (gameplay.getPlayers().size() >= 3) {
+           gameplay.turn(2);
+           if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
+               gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
+               if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+                   btnH.setVisible(true);
+                   btnH.setDisable(false);
+                   setIcon(btnH, "Hearts.png");
+                   btnH.setMaxWidth(50);
+               }
+               else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).equals(Card.Suit.DIAMOND)) {
+                   btnD.setVisible(true);
+                   btnD.setDisable(false);
+                   setIcon(btnD, "Diamonds.png");
+                   btnD.setMaxWidth(50);
+               }
+               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+                   btnS.setVisible(true);
+                   btnS.setDisable(false);
+                   setIcon(btnS, "Spades.png");
+                   btnS.setMaxWidth(50);
+               }
+               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+                   btnC.setVisible(true);
+                   btnC.setDisable(false);
+                   setIcon(btnC, "Clubs.png");
+                   btnC.setMaxWidth(50);
+
+               }
+           }
+           gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+           showHandGPU(e);
+       }
+
+
+       if (gameplay.getPlayers().size() >= 4) {
+           gameplay.turn(3);
+           if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
+               gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
+               if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+                   btnH.setVisible(true);
+                   btnH.setDisable(false);
+                   setIcon(btnH, "Hearts.png");
+                   btnH.setMaxWidth(50);
+               }
+               else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.DIAMOND)) {
+                   btnD.setVisible(true);
+                   btnD.setDisable(false);
+                   setIcon(btnD, "Diamonds.png");
+                   btnD.setMaxWidth(50);
+               }
+               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+                   btnS.setVisible(true);
+                   btnS.setDisable(false);
+                   setIcon(btnS, "Spades.png");
+                   btnS.setMaxWidth(50);
+               }
+               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+                   btnC.setVisible(true);
+                   btnC.setDisable(false);
+                   setIcon(btnC, "Clubs.png");
+                   btnC.setMaxWidth(50);
+
+               }
+           }
+           gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+           showHandGPU(e);
+       }
+   }
+
+
+
+    @FXML
     void onDealCards(ActionEvent event) {
 
         btnDealCards.setText("RESTART");
-        if(nOfPlayers == 0)
+        if (nOfPlayers == 0)
             nOfPlayers = 2;
         gameplay = new Gameplay(nOfPlayers);
 
         gameplay.dealCards();
         cardsClicked = new Deck();
         //cardsClicked.add(gameplay.getPlayers().get(0).getHandCards().get(0));
-        showHandGPU();
+        showHandGPU(event);
     }
 
     @FXML
     void onHand(ActionEvent e) {
 
-        if ( e.getSource().equals(btnCard1)) {
+        if (e.getSource().equals(btnCard1)) {
             btnList.add(btnCard1);
             cardsClicked.addCard(gameplay.getPlayers().get(0).getHandCards().get(0));
             btnCard1.setTranslateY(-300);
@@ -149,7 +339,7 @@ public class Controller {
             btnList.add(btnCard3);
             cardsClicked.addCard(gameplay.getPlayers().get(0).getHandCards().get(2));
             btnCard3.setTranslateY(-300);
-        } else if (e.getSource().equals(btnCard4) ){
+        } else if (e.getSource().equals(btnCard4)) {
             btnList.add(btnCard4);
             cardsClicked.addCard(gameplay.getPlayers().get(0).getHandCards().get(3));
             btnCard4.setTranslateY(-300);
@@ -181,8 +371,7 @@ public class Controller {
             btnList.add(btnCard11);
             cardsClicked.addCard(gameplay.getPlayers().get(0).getHandCards().get(10));
             btnCard11.setTranslateY(-300);
-        }
-        else if (e.getSource().equals(btnCard12)) {
+        } else if (e.getSource().equals(btnCard12)) {
             btnList.add(btnCard12);
             cardsClicked.addCard(gameplay.getPlayers().get(0).getHandCards().get(11));
             btnCard12.setTranslateY(-300);
@@ -190,201 +379,202 @@ public class Controller {
     }
 
     @FXML
-    void onConfirm(ActionEvent event){
-
+    void onConfirm(ActionEvent event) {
 
         Deck cards = cardsClicked;
 
         int ok = gameplay.getPlayers().get(0).getMove(cards, gameplay.getDeck2());
 
-        if(ok == 2){
-            for (int i = 0; i < cardsClicked.size() ; i++) {
+
+        if (clicks >=3) {
+
+            turn(event);
+
+            clicks = 0;
 
 
-                gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size()-1));
-                showHandGPU();
-                bounceBTN(btnTopCard);
-                ok = 0;
+        } else {
+            if (ok == 1) {
+                //for (int i = 0; i < cardsClicked.size(); i++) {
+
                 cardsClicked = new Deck();
-
-                gameplay.turn(1);
-                gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size()-1));
-                showHandGPU();
+                gameplay.getPlayers().get(0).makeMove(cards, gameplay.getDeck2(), gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+                gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+                showHandGPU(event);
                 bounceBTN(btnTopCard);
 
-                if (gameplay.getPlayers().size()>=3){
-                    gameplay.turn(2);
-                    gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size()-1));
-                    bounceBTN(btnTopCard);
-                showHandGPU();}
 
-                if (gameplay.getPlayers().size()>=4) {
-                    gameplay.turn(3);
-                    gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size()-1));
-                    bounceBTN(btnTopCard);
-                }
 
-                showHandGPU();
+                turn(event);
+                clicks = 0;
+
+
+            } else if (ok == 0) {
+                cardsClicked = new Deck();
+                showHandGPU(event);
+
+
+            } else if (ok == 2) {
+                btnH.setVisible(true);
+                btnH.setDisable(false);
+                setIcon(btnH, "Hearts.png");
+                btnH.setMaxWidth(50);
+                btnC.setVisible(true);
+                btnC.setDisable(false);
+                setIcon(btnC, "Clubs.png");
+                btnC.setMaxWidth(50);
+                btnS.setVisible(true);
+                btnS.setDisable(false);
+                setIcon(btnS, "Spades.png");
+                btnS.setMaxWidth(50);
+                btnD.setVisible(true);
+                btnD.setDisable(false);
+                setIcon(btnD, "Diamonds.png");
+                btnD.setMaxWidth(50);
+
+                gameplay.getPlayers().get(0).makeMove(cardsClicked, gameplay.getDeck2(), gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+                gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
+                showHandGPU(event);
+                bounceBTN(btnTopCard);
+                clicks = 0;
+                cardsClicked = new Deck();
             }
-
-        }else if(ok == 0){
-            for (int i = 0; i < btnList.size(); i++) {
-            }
-            showHandGPU();
-        }
-        else {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/osemka.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Scene scene= new Scene(root,1200,800);
-
-            Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
-
-            stage.setScene(scene);
-            stage.show();
-
-            // tutaj obslugujemy crazy eights
         }
     }
 
-    private void bounceBTN(Button button){
-        new Bounce(button).setSpeed(0.1).play();
+
+    private void bounceBTN(Button button) {
+        new Bounce(button).setSpeed(0.8).play();
     }
 
 
-
-    private void setIcon(Button button,String name){
-        Image icon = new Image("images/PNG/"+name);
+    private void setIcon(Button button, String name) {
+        Image icon = new Image("images/PNG/" + name);
         ImageView imageView = new ImageView(icon);
         int size = 65;
         imageView.setFitWidth(size);
-        imageView.setFitHeight((int)(size * icon.getHeight() / icon.getWidth()));
+        imageView.setFitHeight((int) (size * icon.getHeight() / icon.getWidth()));
         button.setText(null);
         button.setGraphic(imageView);
 
 
     }
 
-    private void showHandGPU(){
+    private void showHandGPU(ActionEvent event) {
+
+
 
         btnConfirm.setVisible(true);
 
-        Card c = gameplay.getDeck2().get(gameplay.getDeck2().size()-1);
+        Card c = gameplay.getDeck2().get(gameplay.getDeck2().size() - 1);
         btnTopCard.setVisible(true);
-        setIcon(btnTopCard,(c.getRankIMG()+c.getSuitIMG()+".png") );
+        setIcon(btnTopCard, (c.getRankIMG() + c.getSuitIMG() + ".png"));
+
 
         //GPU initial cards
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=1){
-        c = gameplay.getPlayers().get(0).getHandCards().get(0);
-        btnCard1.setTranslateY(-250);
-        setIcon(btnCard1,(c.getRankIMG()+c.getSuitIMG()+".png"));
-        }
-        else
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 1) {
+            c = gameplay.getPlayers().get(0).getHandCards().get(0);
+            btnCard1.setTranslateY(-250);
+            setIcon(btnCard1, (c.getRankIMG() + c.getSuitIMG() + ".png"));
+        } else
             btnCard1.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=2){
-        c = gameplay.getPlayers().get(0).getHandCards().get(1);
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 2) {
+            c = gameplay.getPlayers().get(0).getHandCards().get(1);
 
-        setIcon(btnCard2,(c.getRankIMG()+c.getSuitIMG()+".png"));
-        btnCard2.setTranslateY(-250);
-        }
-        else
+            setIcon(btnCard2, (c.getRankIMG() + c.getSuitIMG() + ".png"));
+            btnCard2.setTranslateY(-250);
+        } else
             btnCard2.setTranslateY(0);
 
 
-
-
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=3) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 3) {
             c = gameplay.getPlayers().get(0).getHandCards().get(2);
 
             setIcon(btnCard3, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard3.setTranslateY(-250);
-        }else
+        } else
             btnCard3.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=4) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 4) {
             c = gameplay.getPlayers().get(0).getHandCards().get(3);
 
             setIcon(btnCard4, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard4.setTranslateY(-250);
-        }else
+        } else
             btnCard4.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=5) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 5) {
             c = gameplay.getPlayers().get(0).getHandCards().get(4);
 
             setIcon(btnCard5, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard5.setTranslateY(-250);
-        }else
+        } else
             btnCard5.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=6) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 6) {
             c = gameplay.getPlayers().get(0).getHandCards().get(5);
 
             setIcon(btnCard6, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard6.setTranslateY(-250);
-        }else
+        } else
             btnCard6.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=7) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 7) {
             c = gameplay.getPlayers().get(0).getHandCards().get(6);
 
             setIcon(btnCard7, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard7.setTranslateY(-250);
-        }else
+        } else
             btnCard7.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=8) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 8) {
             c = gameplay.getPlayers().get(0).getHandCards().get(7);
 
             setIcon(btnCard8, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard8.setTranslateY(-250);
-        }else
+        } else
             btnCard8.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=9) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 9) {
             c = gameplay.getPlayers().get(0).getHandCards().get(8);
 
             setIcon(btnCard9, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard9.setTranslateY(-250);
-        }else
+        } else
             btnCard9.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=10) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 10) {
             c = gameplay.getPlayers().get(0).getHandCards().get(9);
 
             setIcon(btnCard10, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard10.setTranslateY(-250);
-        }else
+        } else
             btnCard10.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=11) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 11) {
             c = gameplay.getPlayers().get(0).getHandCards().get(10);
 
             setIcon(btnCard11, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard11.setTranslateY(-250);
-        }else
+        } else
             btnCard11.setTranslateY(0);
 
-        if(gameplay.getPlayers().get(0).getHandCards().size()>=12) {
+        if (gameplay.getPlayers().get(0).getHandCards().size() >= 12) {
             c = gameplay.getPlayers().get(0).getHandCards().get(11);
 
             setIcon(btnCard12, (c.getRankIMG() + c.getSuitIMG() + ".png"));
             btnCard12.setTranslateY(-250);
-        }else
+        } else
             btnCard12.setTranslateY(0);
 
         if (gameplay.getPlayers().size() >= 2) {
 
             switch (gameplay.getPlayers().get(1).getHandCards().size()) {
+                case 0:
+                    CPU1.setImage(null);
+                    break;
                 case 1:
                     CPU1.setImage(new Image("images/PNG/back.jpg"));
                     break;
@@ -425,8 +615,12 @@ public class Controller {
         }
 
 
+
         if (gameplay.getPlayers().size() >= 3) {
             switch (gameplay.getPlayers().get(2).getHandCards().size()) {
+                case 0:
+                    CPU1.setImage(null);
+                    break;
                 case 1:
                     CPU2.setImage(new Image("images/PNG/back.jpg"));
                     break;
@@ -469,6 +663,9 @@ public class Controller {
 
         if (gameplay.getPlayers().size() >= 4) {
             switch (gameplay.getPlayers().get(3).getHandCards().size()) {
+                case 0:
+                    CPU1.setImage(null);
+                    break;
                 case 1:
                     CPU3.setImage(new Image("images/PNG/back.jpg"));
                     break;
@@ -507,8 +704,51 @@ public class Controller {
             CPU3.setRotate(-90);
             CPU3.setFitHeight(150);
             CPU3.setFitWidth(190);
+
+        }
+        win = "nic";
+
+
+        if (gameplay.getPlayers().get(0).getHandCards().size() == 0) {
+            win = "YOU WIN!";
+        } else if (gameplay.getPlayers().get(1).getHandCards().size() == 0) {
+            win = "YOU LOSE!";
+        } else if (gameplay.getPlayers().size() >= 3) {
+            if (gameplay.getPlayers().get(2).getHandCards().size() == 0) {
+                win = "YOU LOSE!";
+            }
+        } else if (gameplay.getPlayers().size() >= 4) {
+            if (gameplay.getPlayers().get(3).getHandCards().size() == 0) {
+                win = "YOU LOSE!";
+            }
+        }
+
+
+
+
+        if (!win.equals("nic")) {
+
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/end.fxml"));
+                Parent root = loader.load();
+
+                Scene scene = new Scene(root, 800, 600);
+
+                Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
+
+
+
+
 
 }

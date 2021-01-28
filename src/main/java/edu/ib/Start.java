@@ -3,9 +3,12 @@ package edu.ib;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.sun.prism.paint.Gradient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -56,9 +60,11 @@ public class Start {
 
         Scene scene= new Scene(root,1200,800);
 
-        Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+        scene.getStylesheets().addAll(this.getClass().getResource("/fxml/background.css").toExternalForm());
 
+        Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+
         stage.show();
 
     }
@@ -94,4 +100,7 @@ public class Start {
         assert btnStart != null : "fx:id=\"btnStart\" was not injected: check your FXML file 'start.fxml'.";
 
     }
+
+
+
 }
