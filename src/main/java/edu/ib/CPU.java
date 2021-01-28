@@ -19,7 +19,14 @@ public class CPU extends Player {
         Deck possibleEights = new Deck();
         Deck possibleSuitsRanks = new Deck();
         int i1 = a++;
-      System.out.println("Numer przejścia: " + a);
+
+      //  System.out.println("ID GRACZA:" + getID());
+      //  if(a==1) {
+     //       for (int i = 0; i < getHandCards().size(); i++) {
+          //      System.out.println("Ręka startowa komputera " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
+      //      }
+     //   }
+
        // for (int i = 0; i < getHandCards().size(); i++) {
          //   System.out.println("Ręka " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
         //}
@@ -32,7 +39,7 @@ public class CPU extends Player {
 
         Integer[] ranks2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        Random picksuit = new Random();
+
 
         //System.out.println("pierwsze karta " + getHandCards().get(0).getValue());
         //System.out.println("top karta " + topCard.getValue() + " " +topCard.getSuit());
@@ -42,6 +49,7 @@ public class CPU extends Player {
             if (getHandCards().get(i).getSuit().equals(topCard.getSuit())) {
                 possibleSuits.addCard(getHandCards().get(i));
             }
+
             if (getHandCards().get(i).getRank().equals(topCard.getRank())) {
                 possibleRanks.addCard(getHandCards().get(i));
             }
@@ -51,17 +59,7 @@ public class CPU extends Player {
 
             //ranks[getHandCards().get(i).getValue() - 2] = ranks[getHandCards().get(i).getValue() - 2] + 1;
         }
-        //  for (int i = 0; i < possibleSuits.size(); i++) {
-        //     System.out.println("suity " + possibleSuits.getCard(i).getValue() + " " + possibleSuits.getCard(i).getSuit());
-        //}
 
-        //for (int i = 0; i < possibleRanks.size(); i++) {
-        //  System.out.println("ranki " + possibleRanks.getCard(i).getValue() + " " + possibleRanks.getCard(i).getSuit());
-        //}
-
-
-        //System.out.println("suity " + possibleSuits.get(0).getValue());
-        //System.out.println("ranki" + possibleRanks.get(0).getValue());
 
 
         for (int i = 0; i < getHandCards().size(); i++) {
@@ -73,9 +71,7 @@ public class CPU extends Player {
         }
 
 
-        //  for (int i = 0; i < possibleSuitsRanks.size(); i++) {
-        //    System.out.println("suity ranks " + possibleSuitsRanks.getCard(i).getValue() + " " + possibleSuitsRanks.getCard(i).getSuit());
-        //}
+
 
         for (int i = 0; i < possibleSuitsRanks.size(); i++) {
             if (possibleSuitsRanks.get(i).getValue() == 2) {
@@ -105,12 +101,6 @@ public class CPU extends Player {
             }
         }
 
-        //for (int i = 0; i < ranks2.length; i++) {
-        //    System.out.println(ranks2[i]);
-        //  }
-
-
-//[0,0,3,1,0,4,2,0]
         //ZAGRYWANIE(OD NAJWAZNIEJSZYCH WARUNKOW) :
 
 
@@ -155,7 +145,7 @@ public class CPU extends Player {
                     if (possibleSuitsRanks.get(j).getValue() == (Arrays.asList(ranks2).indexOf(2))) {
                         twoDeck.addCard(possibleSuitsRanks.get(j));
                     }
-                }
+
                 playACard(deck2, twoDeck.get(i));
             }
 
@@ -207,12 +197,7 @@ public class CPU extends Player {
 
         }
         else {
-          //  if(!getHandCards().isEmpty()){
-            //    System.out.println("reka bez dobrania:");
-              //  for (int i = 0; i < getHandCards().size(); i++) {
-               //     System.out.println("Ręka " + a + " " + getHandCards().getCard(i).getValue() + " " + getHandCards().getCard(i).getSuit());
-                //}
-            //}
+
             if (a < 4) {
                 System.out.println("dobralem");
                 takeACard(deck1);
@@ -222,7 +207,6 @@ public class CPU extends Player {
             a=0;
 
         }
-
 
     }
 

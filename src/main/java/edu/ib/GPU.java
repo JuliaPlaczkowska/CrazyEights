@@ -20,9 +20,15 @@ public class GPU extends Player {
         Deck possibleSuitsRanks = new Deck();
         int i1 = a++;
         //System.out.println("Numer przejścia: " + a);
-        //for (int i = 0; i < getHandCards().size(); i++) {
-            //System.out.println("Ręka " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
-       // }
+        System.out.println("ID GRACZA:" + getID());
+     //  if(a==1) {
+      //     for (int i = 0; i < getHandCards().size(); i++) {
+      //         System.out.println("Ręka startowa " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
+
+
+         //  }
+      // }
+
 
         //System.out.println("ID GRACZA " + getID());
 
@@ -30,12 +36,9 @@ public class GPU extends Player {
         Deck threeDeck = new Deck();
         Deck twoDeck = new Deck();
 
-        int[] ranks = new int[12];
+
 
         Integer[] ranks2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        ArrayList ranks23 = new ArrayList<>();
-
-        Random picksuit = new Random();
 
 
         for (int i = 0; i < deck1.size(); i++) {

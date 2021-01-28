@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -107,6 +108,15 @@ public class Controller {
     @FXML
     private Button btnC;
 
+    @FXML
+    private Text txtp1;
+
+    @FXML
+    private Text txtp2;
+
+    @FXML
+    private Text txtp3;
+
     Random losowe = new Random();
     int liczniklosowy = 0;
     private Gameplay gameplay;
@@ -119,7 +129,7 @@ public class Controller {
 
     @FXML
     void onDeck1(ActionEvent event) {
-        if (clicks > 3) {
+        if (clicks >= 3) {
 
         } else {
             gameplay.getPlayers().get(0).takeACard(gameplay.getDeck1());
@@ -154,6 +164,17 @@ public class Controller {
         btnD.setDisable(true);
         assert btnCard != null : "fx:id=\"btnCard\" was not injected: check your FXML file 'table.fxml'.";
         setIcon(btnCard, "back.jpg");
+        txtp1.setVisible(true);
+
+        if (nOfPlayers>=3)
+            txtp2.setVisible(true);
+        else
+            txtp2.setVisible(false);
+
+        if (nOfPlayers>=4)
+            txtp3.setVisible(true);
+        else
+            txtp3.setVisible(false);
 
     }
 
@@ -206,68 +227,74 @@ public class Controller {
        gameplay.turn(1);
        gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
        if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
-           gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
-           if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+           int suit = (1+losowe.nextInt(4));
+
+           if(suit == 1){
                btnH.setVisible(true);
                btnH.setDisable(false);
                setIcon(btnH, "Hearts.png");
                btnH.setMaxWidth(50);
            }
 
-           else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.DIAMOND)) {
+           else if(suit == 2) {
                btnD.setVisible(true);
                btnD.setDisable(false);
                setIcon(btnD, "Diamonds.png");
                btnD.setMaxWidth(50);
            }
-           else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+           else if(suit == 3){
                btnS.setVisible(true);
                btnS.setDisable(false);
                setIcon(btnS, "Spades.png");
                btnS.setMaxWidth(50);
            }
-           else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+           else if(suit == 4){
                btnC.setVisible(true);
                btnC.setDisable(false);
                setIcon(btnC, "Clubs.png");
                btnC.setMaxWidth(50);
 
            }
-
+           gameplay.setTopCard(new Card(8, suit));
+           gameplay.getDeck2().addCard(new Card(8, suit));
        }
+       gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
        showHandGPU(e);
 
 
        if (gameplay.getPlayers().size() >= 3) {
            gameplay.turn(2);
            if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
-               gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
-               if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+               int suit = (1+losowe.nextInt(4));
+               if(suit == 1){
                    btnH.setVisible(true);
                    btnH.setDisable(false);
                    setIcon(btnH, "Hearts.png");
                    btnH.setMaxWidth(50);
                }
-               else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).equals(Card.Suit.DIAMOND)) {
+               else if(suit == 2) {
                    btnD.setVisible(true);
                    btnD.setDisable(false);
                    setIcon(btnD, "Diamonds.png");
                    btnD.setMaxWidth(50);
                }
-               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+               else if(suit == 3){
                    btnS.setVisible(true);
                    btnS.setDisable(false);
                    setIcon(btnS, "Spades.png");
                    btnS.setMaxWidth(50);
                }
-               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+               else if(suit == 4){
                    btnC.setVisible(true);
                    btnC.setDisable(false);
                    setIcon(btnC, "Clubs.png");
                    btnC.setMaxWidth(50);
 
                }
+               gameplay.setTopCard(new Card(8, suit));
+               gameplay.getDeck2().addCard(new Card(8, suit));
            }
+
            gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
            showHandGPU(e);
        }
@@ -276,32 +303,35 @@ public class Controller {
        if (gameplay.getPlayers().size() >= 4) {
            gameplay.turn(3);
            if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getValue() == 8){
+               int suit = (1+losowe.nextInt(4));
                gameplay.setTopCard(new Card(8, (1+losowe.nextInt(4))));
-               if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.HEART)){
+               if(suit == 1){
                    btnH.setVisible(true);
                    btnH.setDisable(false);
                    setIcon(btnH, "Hearts.png");
                    btnH.setMaxWidth(50);
                }
-               else if(gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.DIAMOND)) {
+               else if(suit == 2) {
                    btnD.setVisible(true);
                    btnD.setDisable(false);
                    setIcon(btnD, "Diamonds.png");
                    btnD.setMaxWidth(50);
                }
-               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.SPADE))){
+               else if(suit == 3){
                    btnS.setVisible(true);
                    btnS.setDisable(false);
                    setIcon(btnS, "Spades.png");
                    btnS.setMaxWidth(50);
                }
-               else if((gameplay.getDeck2().get(gameplay.getDeck2().size()-1).getSuit().equals(Card.Suit.CLUB))){
+               else if(suit == 4){
                    btnC.setVisible(true);
                    btnC.setDisable(false);
                    setIcon(btnC, "Clubs.png");
                    btnC.setMaxWidth(50);
 
                }
+               gameplay.setTopCard(new Card(8, suit));
+               gameplay.getDeck2().addCard(new Card(8, suit));
            }
            gameplay.setTopCard(gameplay.getDeck2().get(gameplay.getDeck2().size() - 1));
            showHandGPU(e);
@@ -322,6 +352,33 @@ public class Controller {
         cardsClicked = new Deck();
         //cardsClicked.add(gameplay.getPlayers().get(0).getHandCards().get(0));
         showHandGPU(event);
+
+        System.out.println("BEN:");
+        for (int i = 0; i < gameplay.getPlayers().get(1).getHandCards().size(); i++) {
+
+
+            System.out.println("" + gameplay.getPlayers().get(1).getHandCards().getCard(i).getValue() + " " + gameplay.getPlayers().get(1).getHandCards().getCard(i).getSuit());
+
+        }
+        if(nOfPlayers>=3){
+            System.out.println("KOMP 2:");
+            for (int i = 0; i < gameplay.getPlayers().get(2).getHandCards().size(); i++) {
+
+
+                System.out.println("" + gameplay.getPlayers().get(2).getHandCards().getCard(i).getValue() + " " + gameplay.getPlayers().get(2).getHandCards().getCard(i).getSuit());
+
+            }
+        }
+        if(nOfPlayers>=4){
+            System.out.println("KOMP 3:");
+            for (int i = 0; i < gameplay.getPlayers().get(3).getHandCards().size(); i++) {
+
+
+                System.out.println("" + gameplay.getPlayers().get(3).getHandCards().getCard(i).getValue() + " " + gameplay.getPlayers().get(3).getHandCards().getCard(i).getSuit());
+
+            }
+        }
+
     }
 
     @FXML
@@ -386,7 +443,7 @@ public class Controller {
         int ok = gameplay.getPlayers().get(0).getMove(cards, gameplay.getDeck2());
 
 
-        if (clicks >=3) {
+        if (clicks >=3 && cardsClicked.isEmpty()) {
 
             turn(event);
 
@@ -711,15 +768,20 @@ public class Controller {
 
         if (gameplay.getPlayers().get(0).getHandCards().size() == 0) {
             win = "YOU WIN!";
-        } else if (gameplay.getPlayers().get(1).getHandCards().size() == 0) {
-            win = "YOU LOSE!";
-        } else if (gameplay.getPlayers().size() >= 3) {
-            if (gameplay.getPlayers().get(2).getHandCards().size() == 0) {
-                win = "YOU LOSE!";
+        }
+        if (gameplay.getPlayers().size() >= 2) {
+            if (gameplay.getPlayers().get(1).getHandCards().size() == 0) {
+                win = "BEN WON!";
             }
-        } else if (gameplay.getPlayers().size() >= 4) {
+        }
+        if (gameplay.getPlayers().size() >= 3) {
+            if (gameplay.getPlayers().get(2).getHandCards().size() == 0) {
+                win = "TED WON!";
+            }
+        }
+        if (gameplay.getPlayers().size() >= 4) {
             if (gameplay.getPlayers().get(3).getHandCards().size() == 0) {
-                win = "YOU LOSE!";
+                win = "DŻIMI WON!";
             }
         }
 

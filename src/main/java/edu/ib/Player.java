@@ -28,20 +28,25 @@ public abstract class Player {
 
 	public void takeACard(Deck deckName) {
 
+		if(deckName.size()==0)
+			deckName.makeADeck();
+
 		Card c = deckName.getCard(deckName.size() - 1);
 		hand.addCard(c);
 		deckName.remove(c);
 	}
 
 	public void playACard(Deck deckName, Card card) {
-		for (int i = 0; i < getHandCards().size(); i++){
-			System.out.println("Ręka " + a + " " + getHandCards().getCard(i).getValue() + " " + getHandCards().getCard(i).getSuit());
-		}
 
-		System.out.println("klade:");
 
 		deckName.addCard(card);
 		getHandCards().remove(card);
+
+
+		if(getID()>=1) {
+			System.out.println("ID: " + getID());
+			System.out.println(card.getValue() + " " + card.getSuit());
+		}
 	}
 
 
