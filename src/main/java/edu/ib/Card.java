@@ -1,6 +1,13 @@
 package edu.ib;
 
+/**
+ * This class is used for creating card object
+ */
 public class Card {
+
+	/**
+	 * Rank represents rank of the card
+	 */
 
 	enum Rank {
 
@@ -14,6 +21,9 @@ public class Card {
 		}
 
 	}
+	/**
+	 * Suit represents suit of the card
+	 */
 	enum Suit {
 		HEART,DIAMOND,SPADE,CLUB
 	}
@@ -23,12 +33,25 @@ public class Card {
 	public Rank rank;
 	public int value;
 
+	/**
+	 * constructor which parameters are:
+	 * @param suit represents the suit of the card
+	 * @param rank represents the rank of the card
+	 *
+	 * it assigns value based on the given rank
+	 */
+
 	public Card(Suit suit, Rank rank){
 		this.suit=suit;
 		this.rank=rank;
 		this.value=rank.value;
 	}
 
+	/**
+	 * second constructor
+	 * @param rank
+	 * @param suit
+	 */
 	public Card(int rank, int suit){
 		switch (suit){
 			case 1 : this.suit = Suit.HEART; break;
@@ -40,6 +63,10 @@ public class Card {
 		this.value=rank;
 	}
 
+	/**
+	 * here are some of getters and setter
+	 * @return
+	 */
 	public Suit getSuit() {
 		return suit;
 	}
@@ -64,6 +91,10 @@ public class Card {
 		this.value = value;
 	}
 
+	/**
+	 * it's used for gettink value of the rank with representation in string
+	 * @return rank
+	 */
 	public String getRankIMG(){
 		String rank =String.valueOf(getValue());
 
@@ -75,6 +106,11 @@ public class Card {
 		}
 		return rank;
 	}
+
+	/**
+	 * it's used for gettink value of the suit with representation in string
+	 * @return suit
+	 */
 
 	public String getSuitIMG(){
 		String suit = "";
@@ -89,16 +125,6 @@ public class Card {
 		return suit;
 	}
 
-	public int getSuitValue(){
-		int suit = 0;
-		switch (getSuit()){
-			case HEART : suit = 1; break;
-			case DIAMOND : suit = 2; break;
-			case SPADE : suit = 3; break;
-			case CLUB : suit = 4; break;
-		}
 
-		return suit;
-	}
 
 }

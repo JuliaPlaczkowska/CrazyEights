@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Ta klasa rozszerza klas\e abstrakcyjn\a Player. W niej zawarte są wszystkie instrukcje pozwalające na wykonanie ruchu przez
+ * gracza oraz sprawdzające poprawność wyboru gracza.
+ */
+
 public class GPU extends Player {
 
 
@@ -11,6 +16,15 @@ public class GPU extends Player {
         super(hand, id);
     }
 
+
+    /**
+     * @Override metoda z klasy Player dla gracza(GPU)
+     * @parametr deck1 reprezentuje deck kart które zostały kliknięte przez gracza
+     * @parametr deck2 reprezentuję deck na który karty są kładzone
+     * @parametr topCard reprezentuję ostatnią kartę z decku2 (ta która jest odwrócone do góry)
+     * Metoda ta wykłada wybrane karty gracza na deck2. Jest ona spełniona jeżeli metoda getMove zwróci 1 ponieważ wtedy wiadomo że ta kombinacja wybranych kart jest poprawna.
+     *  Algorytm wykładania kart jest podobny do algorytmu z metody makeMove dla komputera.
+     */
     @Override
     public void makeMove(Deck deck1, Deck deck2, Card topCard) {
         int ok;
@@ -207,7 +221,13 @@ public class GPU extends Player {
 //
 //
 //    }
-
+    /**
+     * @Metoda getMove
+     * @parametr deck1 reprezentuje deck kart które zostały kliknięte przez gracza
+     * @parametr deck2 reprezentuję deck na który karty są kład
+     * Metoda ta sprawdza czy dana kombinacja kart klikniętych przez gracza jest dozwolona. Jeżeli kombinacja ta jest zgodna z zasadami gry metoda ta zwraca 1, jeżeli
+     *   kombinacja jest niepoprawna to metoda ta zwraca 0. Algorytm sprawdzania czy kombinacja jest poprawna jest podobny do algorytmu z metody makeMove dla komputera.
+     */
 
 
     public int getMove(Deck deck1, Deck deck2) {

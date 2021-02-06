@@ -52,6 +52,10 @@ public class Start {
 
     private static int nOfPlayers;
 
+    /**
+     * Metoda onStartGame
+     * Metoda ta wywołuję pierwszą scenę po uruchomieniu aplikacji. Zawiera ona wybór ilości graczy i przycisk start.
+     * **/
     @FXML
     void onStartGame(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -68,29 +72,44 @@ public class Start {
         stage.show();
 
     }
-
+    /**
+     * Metoda set2Players
+     * Metoda ta ustawia liczbe graczy na 2.
+     * **/
     @FXML
     void set2Players(ActionEvent event) {
         nOfPlayers = 2;
         text.setText(String.valueOf(nOfPlayers));
     }
-
+    /**
+     * Metoda set3Players
+     * Metoda ta ustawia liczbe graczy na 3.
+     * **/
     @FXML
     void set3Players(ActionEvent event) {
         nOfPlayers = 3;
         text.setText(String.valueOf(nOfPlayers));
     }
-
+    /**
+     * Metoda set4Players
+     * Metoda ta ustawia liczbe graczy na 4.
+     * **/
     @FXML
     void set4Players(ActionEvent event) {
         nOfPlayers = 4;
         text.setText(String.valueOf(nOfPlayers));
     }
-
+    /**
+     * Metoda nop
+     * Metoda ta zwraca liczbę wybranych graczy. Została stworzona aby można było znać tą wartość w innych klasach.
+     * **/
    public static int nop(){
         return nOfPlayers;
    }
 
+    /**
+     * This method is called by the FXMLLoader when initialization is complete
+     */
     @FXML
     void initialize() {
         assert menu != null : "fx:id=\"menu\" was not injected: check your FXML file 'start.fxml'.";

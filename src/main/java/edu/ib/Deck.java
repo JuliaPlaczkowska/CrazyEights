@@ -2,11 +2,18 @@ package edu.ib;
 
 import java.util.*;
 
+/**
+ * Klasa słuząca do tworzenia talii kart, ręki gracza orazkomputera, implementuje interfejs List.
+ */
+
 public class Deck implements List<Card> {
 
 	private List<Card> cards;
 
-
+	/**
+	 * Metoda makeADeck
+	 * Metoda ta iteruję po każdym dostępnym ranku oraz suicie tworząc talie kart. Karty są dodane do listy. Na końcu następuję polecenie shuffle które tasuję karty.
+	 * **/
 	public void makeADeck(){
 		for(Card.Suit suit: Card.Suit.values()){
 			for (Card.Rank rank : Card.Rank.values()){
@@ -20,24 +27,29 @@ public class Deck implements List<Card> {
 		cards = new ArrayList<>();
 	}
 
+	/**
+	 * Konstruktor Deck
+	 * @parametr card reprezentuję listę kart które stworzą dany deck
+	 * Pozwala na stworzenie obiektu klasy Deck
+	 * **/
 	public Deck(List<Card> cards) {
 		this.cards = cards;
 	}
 
-	public void shuffle() {
-		// TODO - implement Deck.shuffle
-		throw new UnsupportedOperationException();
-	}
-
-	public void subCard() {
-		// TODO - implement Deck.subCard
-		throw new UnsupportedOperationException();
-	}
-
+	/**
+	 * Metoda addCard
+	 * @parametr card reprezentuję daną kartę
+	 * Metoda ta pozwala na dodanie karty do wybranego decku.
+	 * **/
 	public void addCard(Card c) {
 		cards.add(c);
 	}
 
+	/**
+	 * Metoda remove
+	 * * @parametr card reprezentuję daną kartę
+	 * Metoda ta pozwala na usunięcie danej karty z wybranego decku.
+	 * **/
 	public void remove(Card c){
 		cards.remove(c);
 	}
@@ -52,7 +64,11 @@ public class Deck implements List<Card> {
 
 		return subDeck;
 	}
-
+	/**
+	 * Metoda getCard
+	 * @parametr i reprezentuję dany indeks
+	 * Metoda ta pozwala na pobranie informacji o karcie któa znadjuję się na danym indeksie i
+	 * **/
 	public Card getCard(int i){
 		//TODO
 		return  cards.get(i);

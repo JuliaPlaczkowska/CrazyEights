@@ -14,6 +14,11 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * This is the  class responsible for controlling the window displayed after the end of the game. This window contains
+ * information about winner of the game and enables you to play again
+ */
+
 public class End {
 
     @FXML
@@ -28,6 +33,11 @@ public class End {
     @FXML
     private Button btnPlayAgain;
 
+    /**
+     * Handles click on play again button.After click it initialize the start interface.
+     * @param event click on playAgain button
+     * @throws IOException exception
+     */
     @FXML
     void onPlayAgain(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -42,6 +52,9 @@ public class End {
         stage.show();
     }
 
+    /**
+     * This method is called by the FXMLLoader when initialization is complete
+     */
     @FXML
     void initialize() {
         assert txtWin != null : "fx:id=\"txtWin\" was not injected: check your FXML file 'end.fxml'.";

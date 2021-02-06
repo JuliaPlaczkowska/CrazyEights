@@ -5,6 +5,10 @@ import org.w3c.dom.ls.LSOutput;
 import java.text.DecimalFormat;
 import java.util.*;
 
+/**
+ * ta klasa zawiera strategię gry komputera
+ */
+
 public class CPU extends Player {
 
 
@@ -12,26 +16,22 @@ public class CPU extends Player {
         super(hand, id);
     }
 
+
+
+    /**
+     * @Override metoda z klasy Player dla komputera(CPU)
+     * @parametr deck1 reprezentuje deck z którego dobierane są karty
+     * @param deck2 reprezentuję deck na który karty są kładzone
+     * @param topCard reprezentuję ostatnią kartę z decku2 (ta która jest odwrócone do góry)
+     * Metoda ta zawiera logikę komputera. Najpierw soruję on karty wg rang, znaków oraz ósemek. Następnie wykonuję on ruch a priorytet mają ruchy które pozwolą na pozbycie się
+     * jak największej ilości kart. Jeżeli nie będzie miał dostępnej żadnej kombinacji dobiera on karte i jeszcze raz próbuję wykonać ruch.
+     */
     @Override
     public void makeMove(Deck deck1, Deck deck2, Card topCard) {
         Deck possibleRanks = new Deck();
         Deck possibleSuits = new Deck();
         Deck possibleEights = new Deck();
         Deck possibleSuitsRanks = new Deck();
-        int i1 = a++;
-
-      //  System.out.println("ID GRACZA:" + getID());
-      //  if(a==1) {
-     //       for (int i = 0; i < getHandCards().size(); i++) {
-          //      System.out.println("Ręka startowa komputera " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
-      //      }
-     //   }
-
-       // for (int i = 0; i < getHandCards().size(); i++) {
-         //   System.out.println("Ręka " + a + " " + getHandCards().getCard(i).value + " " + getHandCards().getCard(i).getSuit());
-        //}
-
-        //System.out.println("ID GRACZA " + getID());
 
         Deck fourDeck = new Deck();
         Deck threeDeck = new Deck();
@@ -40,9 +40,6 @@ public class CPU extends Player {
         Integer[] ranks2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 
-
-        //System.out.println("pierwsze karta " + getHandCards().get(0).getValue());
-        //System.out.println("top karta " + topCard.getValue() + " " +topCard.getSuit());
 
 
         for (int i = 0; i < getHandCards().size(); i++) {
@@ -57,9 +54,7 @@ public class CPU extends Player {
                 possibleEights.addCard(getHandCards().get(i));
             }
 
-            //ranks[getHandCards().get(i).getValue() - 2] = ranks[getHandCards().get(i).getValue() - 2] + 1;
         }
-
 
 
         for (int i = 0; i < getHandCards().size(); i++) {
@@ -69,8 +64,6 @@ public class CPU extends Player {
                 }
             }
         }
-
-
 
 
         for (int i = 0; i < possibleSuitsRanks.size(); i++) {
@@ -114,13 +107,11 @@ public class CPU extends Player {
                 playACard(deck2, fourDeck.get(i));
             }
 
-        }
-        else if (possibleRanks.size() == 4) {
+        } else if (possibleRanks.size() == 4) {
             for (int i = 0; i < possibleRanks.size(); i++) {
                 playACard(deck2, possibleRanks.get(i));
             }
-        }
-        else if (Arrays.asList(ranks2).contains(3)) {
+        } else if (Arrays.asList(ranks2).contains(3)) {
             for (int i = 0; i < 3; i++) {
 
                 for (int j = 0; j < possibleSuitsRanks.size(); j++) {
@@ -131,14 +122,12 @@ public class CPU extends Player {
                 playACard(deck2, threeDeck.get(i));
             }
 
-        }
-        else if (possibleRanks.size() == 3) {
+        } else if (possibleRanks.size() == 3) {
             for (int i = 0; i < possibleRanks.size(); i++) {
                 playACard(deck2, possibleRanks.get(i));
             }
 
-        }
-        else if (Arrays.asList(ranks2).contains(2)) {
+        } else if (Arrays.asList(ranks2).contains(2)) {
             for (int i = 0; i < 2; i++) {
 
                 for (int j = 0; j < possibleSuitsRanks.size(); j++) {
@@ -146,69 +135,63 @@ public class CPU extends Player {
                         twoDeck.addCard(possibleSuitsRanks.get(j));
                     }
 
-                playACard(deck2, twoDeck.get(i));
+                    playACard(deck2, twoDeck.get(i));
+                }
+
+            }
+        }else if (possibleRanks.size() == 2) {
+                for (int i = 0; i < possibleRanks.size(); i++) {
+                    playACard(deck2, possibleRanks.get(i));
+                }
+            } else if (possibleRanks.size() == 1) {
+                playACard(deck2, possibleRanks.get(0));
+            } else if (possibleSuits.size() >= 1) {
+                // playACard(deck2, getHandCards().get(getHandCards().indexOf(possibleSuits.get(0))));
+                playACard(deck2, possibleSuits.get(0));
             }
 
-        }
-        else if (possibleRanks.size() == 2) {
-            for (int i = 0; i < possibleRanks.size(); i++) {
-                playACard(deck2, possibleRanks.get(i));
-            }
-        }
-        else if (possibleRanks.size() == 1) {
-            playACard(deck2, possibleRanks.get(0));
-        }
-        else if (possibleSuits.size() >=1) {
-            // playACard(deck2, getHandCards().get(getHandCards().indexOf(possibleSuits.get(0))));
-            playACard(deck2, possibleSuits.get(0));
-        }
 
+            //ÓSEMKI:
 
-        //ÓSEMKI:
-
-        else if (possibleEights.size() == 4) {
-            for (int i = 0; i < possibleEights.size(); i++) {
+            else if (possibleEights.size() == 4) {
+                for (int i = 0; i < possibleEights.size(); i++) {
 
                     playACard(deck2, possibleEights.get(i));
 
 
-            }
-        }
-        else if (possibleEights.size() == 3) {
-            for (int i = 0; i < possibleEights.size(); i++) {
+                }
+            } else if (possibleEights.size() == 3) {
+                for (int i = 0; i < possibleEights.size(); i++) {
 
 
                     playACard(deck2, possibleEights.get(i));
                 }
 
-            }
-
-        else if (possibleEights.size() == 2) {
-            for (int i = 0; i < possibleEights.size(); i++) {
+            } else if (possibleEights.size() == 2) {
+                for (int i = 0; i < possibleEights.size(); i++) {
 
 
                     playACard(deck2, possibleEights.get(i));
 
+                }
+            } else if (possibleEights.size() == 1) {
+
+                playACard(deck2, possibleEights.get(0));
+
+            } else {
+
+                if (a < 4) {
+                    System.out.println("dobralem");
+                    takeACard(deck1);
+                    makeMove(deck1, deck2, topCard);
+
+                }
+                a = 0;
+
             }
-        }
-        else if (possibleEights.size() ==1){
-
-            playACard(deck2, possibleEights.get(0));
-
-        }
-        else {
-
-            if (a < 4) {
-                System.out.println("dobralem");
-                takeACard(deck1);
-                makeMove(deck1, deck2, topCard);
-
-            }
-            a=0;
 
         }
 
-    }
 
     @Override
     public int getMove(Deck hand2, Deck deck2) {

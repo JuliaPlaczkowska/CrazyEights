@@ -27,6 +27,11 @@ import javafx.util.Duration;
 
 import javax.sound.midi.Track;
 
+/**
+ * this class is the controller for gameplay GUI. It controls all of the buttons, images, etc..
+ */
+
+
 public class Controller {
 
 
@@ -117,6 +122,10 @@ public class Controller {
     @FXML
     private Text txtp3;
 
+    /**
+     * losowe is used for generating random numbers when needed
+     */
+
     Random losowe = new Random();
     int liczniklosowy = 0;
     private Gameplay gameplay;
@@ -126,6 +135,11 @@ public class Controller {
     private int clicks = 0;
     private static String win = "nic";
 
+
+    /**
+     * this method handles the event of clicking on deck1 from h cards are dealt
+     * @param event click on button deck1
+     */
 
     @FXML
     void onDeck1(ActionEvent event) {
@@ -138,7 +152,9 @@ public class Controller {
         }
     }
 
-
+/**
+ * getter in case if some player won the game - put his last card on deck2
+ */
     public static String getWin() {
         return win;
     }
@@ -148,8 +164,12 @@ public class Controller {
         this.nOfPlayers = nOfPlayers;
     }
 
+    /**
+     * This method is called by the FXMLLoader when initialization is complete
+     */
+
     @FXML
-        // This method is called by the FXMLLoader when initialization is complete
+
     void initialize() {
 
         btnTopCard.setVisible(false);
@@ -176,8 +196,15 @@ public class Controller {
         else
             txtp3.setVisible(false);
 
+        txtp3.setText("JIMI");
+
     }
 
+    /**
+     * this method handles the event of clicking on suit which pop when CPU plays card with 8 rank.
+     * IThis is how the suit is changed after playing 8.
+     *      * @param event click on button Suit
+     */
     @FXML
     void onSuit(ActionEvent e) {
 
@@ -216,6 +243,11 @@ public class Controller {
 
         showHandGPU(e);
     }
+
+    /**
+     * Order in which CPUs play their cards
+     * @param e
+     */
 
    void turn(ActionEvent e) {
 
@@ -338,7 +370,11 @@ public class Controller {
        }
    }
 
-
+    /**
+     * After clicking on button DEAL CARDS it basically starts the game by dealing cards to players. If it's clicked
+     * again during the game it restarts the game.
+     * @param event
+     */
 
     @FXML
     void onDealCards(ActionEvent event) {
@@ -361,7 +397,7 @@ public class Controller {
 
         }
         if(nOfPlayers>=3){
-            System.out.println("KOMP 2:");
+            System.out.println("TED:");
             for (int i = 0; i < gameplay.getPlayers().get(2).getHandCards().size(); i++) {
 
 
@@ -370,7 +406,7 @@ public class Controller {
             }
         }
         if(nOfPlayers>=4){
-            System.out.println("KOMP 3:");
+            System.out.println("DZIMI:");
             for (int i = 0; i < gameplay.getPlayers().get(3).getHandCards().size(); i++) {
 
 
@@ -381,6 +417,11 @@ public class Controller {
 
     }
 
+    /**
+     * This method handles event when GPU chooses card to play. After each click on card it adds chosen ones to list of cards
+     * that will be played. It also moves chosen card slightly up.
+     * @param e Click on one card of the hnd action
+     */
     @FXML
     void onHand(ActionEvent e) {
 
@@ -435,6 +476,14 @@ public class Controller {
         }
     }
 
+    /**
+     * In order to play your chosen card you are to click on the confirm button. This method contains algorithm which
+     * checks whether chosen cards fit to the card on deck1. If you pick wrong set of cards or just one wrong card it resets
+     * your choice and moves chosen cards to their original position. After drawing 3 cards and not getting suitable one
+     * you must click confirm to pass your turn.
+     * @param event
+     */
+
     @FXML
     void onConfirm(ActionEvent event) {
 
@@ -450,7 +499,11 @@ public class Controller {
             clicks = 0;
 
 
-        } else {
+        } else if(cardsClicked.isEmpty()){
+            turn(event);
+            clicks = 0;
+        }
+        else {
             if (ok == 1) {
                 //for (int i = 0; i < cardsClicked.size(); i++) {
 
@@ -468,6 +521,7 @@ public class Controller {
 
             } else if (ok == 0) {
                 cardsClicked = new Deck();
+                clicks = 0;
                 showHandGPU(event);
 
 
@@ -499,11 +553,19 @@ public class Controller {
         }
     }
 
-
+    /**
+     * method performs bounce animation
+     * @param button to bounce
+     */
     private void bounceBTN(Button button) {
         new Bounce(button).setSpeed(0.8).play();
     }
 
+    /**
+     * displays an image of a given name (string) on the button
+     * @param button on which the image will be displayed
+     * @param name of an image from resources/images/PNG
+     */
 
     private void setIcon(Button button, String name) {
         Image icon = new Image("images/PNG/" + name);
@@ -516,6 +578,11 @@ public class Controller {
 
 
     }
+
+    /**
+     * updates image on the cards after every play of the game in every player's hand
+     * @param event any action event
+     */
 
     private void showHandGPU(ActionEvent event) {
 
@@ -781,7 +848,7 @@ public class Controller {
         }
         if (gameplay.getPlayers().size() >= 4) {
             if (gameplay.getPlayers().get(3).getHandCards().size() == 0) {
-                win = "DŻIMI WON!";
+                win = "JIMI WON!";
             }
         }
 

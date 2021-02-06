@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main class, starts javaFX application, creates start scene
+ */
+
 public class Table extends Application {
 
     public static void main(String[] args) {
